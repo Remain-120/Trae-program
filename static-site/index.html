@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智识笔记 - SmartKnowledge</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <header class="header">
+        <div class="header-left">
+            <a href="#" class="logo" onclick="navigateTo('home'); return false;">
+                <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14 2 14 8 20 8"></polyline>
+                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                    <polyline points="10 9 9 9 8 9"></polyline>
+                </svg>
+                <span>智识笔记</span>
+            </a>
+        </div>
+        <div class="header-center">
+            <div class="search-wrapper">
+                <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input type="text" class="search-input" placeholder="搜索知识点..." id="globalSearch">
+                <button class="btn btn-primary search-btn" onclick="handleGlobalSearch()">搜索</button>
+            </div>
+        </div>
+        <div class="header-right">
+            <button class="btn btn-default btn-icon" onclick="navigateTo('home')" title="首页">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+            </button>
+            <button class="btn btn-default btn-icon" onclick="navigateTo('import')" title="导入">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="17 8 12 3 7 8"></polyline>
+                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                </svg>
+            </button>
+            <button class="btn btn-default btn-icon" onclick="navigateTo('settings')" title="设置">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+                    <circle cx="12" cy="12" r="3"></circle>
+                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                </svg>
+            </button>
+            <div class="user-avatar" onclick="toggleUserMenu()" style="background-image: url('img/mmexport1779292180713.jpg'); background-size: cover; background-position: center;"></div>
+        </div>
+    </header>
+
+    <!-- 用户菜单 -->
+    <div id="userMenu" style="display: none; position: absolute; right: 20px; top: 70px; background: white; border-radius: 8px; box-shadow: 0 4px 16px rgba(0,0,0,0.1); padding: 8px; min-width: 150px; z-index: 1001;">
+        <div style="padding: 8px 12px; cursor: pointer;" onclick="navigateTo('settings'); toggleUserMenu();">个人设置</div>
+        <div style="padding: 8px 12px; cursor: pointer;" onclick="navigateTo('category'); toggleUserMenu();">分类管理</div>
+        <div style="padding: 8px 12px; cursor: pointer;" onclick="navigateTo('tag'); toggleUserMenu();">标签管理</div>
+        <div style="padding: 8px 12px; cursor: pointer;" onclick="navigateTo('help'); toggleUserMenu();">帮助指南</div>
+        <div style="border-top: 1px solid #ebeef5; padding: 8px 12px; cursor: pointer; color: #f56c6c;" onclick="toggleUserMenu();">退出登录</div>
+    </div>
+
+    <!-- 主体容器 -->
+    <div class="main-container">
+        <!-- 侧边栏 -->
+        <aside class="sidebar" id="sidebar">
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <div class="nav-title">导航</div>
+                    <div class="nav-item" onclick="navigateTo('home')" id="nav-home" data-title="首页">
+                        <svg class="nav-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                        </svg>
+                        <span class="nav-item-text">首页</span>
+                    </div>
+                    <div class="nav-item" onclick="navigateTo('knowledge')" id="nav-knowledge" data-title="知识点">
+                        <svg class="nav-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                            <line x1="16" y1="13" x2="8" y2="13"></line>
+                            <line x1="16" y1="17" x2="8" y2="17"></line>
+                            <polyline points="10 9 9 9 8 9"></polyline>
+                        </svg>
+                        <span class="nav-item-text">知识点</span>
+                    </div>
+                    <div class="nav-item" onclick="navigateTo('search')" id="nav-search" data-title="搜索">
+                        <svg class="nav-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                        <span class="nav-item-text">搜索</span>
+                    </div>
+                    <div class="nav-item" onclick="navigateTo('graph')" id="nav-graph" data-title="知识图谱">
+                        <svg class="nav-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
+                        </svg>
+                        <span class="nav-item-text">知识图谱</span>
+                    </div>
+                </div>
+                <div class="nav-section">
+                    <div class="nav-title">分类</div>
+                    <div id="categoryNav"></div>
+                </div>
+                <div class="nav-section quick-actions">
+                    <div class="nav-title">快捷操作</div>
+                    <button class="btn btn-primary action-btn" onclick="navigateTo('create')">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                        新建知识点
+                    </button>
+                    <button class="btn btn-default action-btn" onclick="navigateTo('import')">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="17 8 12 3 7 8"></polyline>
+                            <line x1="12" y1="3" x2="12" y2="15"></line>
+                        </svg>
+                        导入文件
+                    </button>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- 内容区域 -->
+        <main class="content" id="content">
+            <!-- 页面内容将通过 JavaScript 动态渲染 -->
+        </main>
+    </div>
+
+    <!-- 回到顶部按钮 -->
+    <div class="back-to-top" id="backToTop" onclick="scrollToTop()" style="display: none;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </div>
+
+    <!-- 模态框 -->
+    <div id="modal" class="modal-overlay" style="display: none;" onclick="closeModal(event)">
+        <div class="modal" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <span class="modal-title" id="modalTitle">标题</span>
+                <button class="modal-close" onclick="closeModal()">×</button>
+            </div>
+            <div class="modal-body" id="modalBody"></div>
+            <div class="modal-footer" id="modalFooter"></div>
+        </div>
+    </div>
+
+    <!-- 引入 Mock 数据 -->
+    <script src="data/mockData.js"></script>
+    <!-- 引入 Marked.js -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    
+    <script>
+        // 当前页面
+        let currentPage = 'home';
+        
+        // 初始化
+        document.addEventListener('DOMContentLoaded', () => {
+            renderPage('home');
+            renderCategoryNav();
+            setupEventListeners();
+            updateNavActive('home');
+        });
+
+        // 设置事件监听
+        function setupEventListeners() {
+            // 全局搜索
+            document.getElementById('globalSearch').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    const keyword = e.target.value.trim();
+                    if (keyword) {
+                        navigateTo('search', { keyword });
+                    }
+                }
+            });
+
+            // 滚动监听
+            window.addEventListener('scroll', () => {
+                const backToTop = document.getElementById('backToTop');
+                backToTop.style.display = window.scrollY > 300 ? 'flex' : 'none';
+            });
+        }
+
+        // 全局搜索按钮点击
+        function handleGlobalSearch() {
+            const keyword = document.getElementById('globalSearch').value.trim();
+            if (keyword) {
+                navigateTo('search', { keyword });
+            } else {
+                alert('请输入搜索关键词');
+            }
+        }
+
+        // 导航到页面
+        function navigateTo(page, params = {}) {
+            currentPage = page;
+            renderPage(page, params);
+            updateNavActive(page);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            document.getElementById('userMenu').style.display = 'none';
+        }
+
+        // 更新导航激活状态
+        function updateNavActive(page) {
+            const navItems = ['home', 'knowledge', 'search', 'graph'];
+            navItems.forEach(item => {
+                const el = document.getElementById('nav-' + item);
+                if (el) {
+                    el.classList.remove('active');
+                }
+            });
+            
+            if (navItems.includes(page)) {
+                const el = document.getElementById('nav-' + page);
+                if (el) el.classList.add('active');
+            }
+        }
+
+        // 切换用户菜单
+        function toggleUserMenu() {
+            const menu = document.getElementById('userMenu');
+            menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
+        }
+
+        // 点击外部关闭菜单
+        document.addEventListener('click', (e) => {
+            const menu = document.getElementById('userMenu');
+            if (menu.style.display === 'block' && !e.target.closest('.user-avatar') && !e.target.closest('#userMenu')) {
+                menu.style.display = 'none';
+            }
+        });
+
+        // 回到顶部
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // 渲染分类导航
+        function renderCategoryNav() {
+            const container = document.getElementById('categoryNav');
+            let html = '';
+            
+            mockData.categories.forEach(cat => {
+                html += `
+                    <div class="nav-item" onclick="navigateTo('knowledge', { categoryId: ${cat.id} })" data-title="${cat.name}">
+                        <svg class="nav-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                        </svg>
+                        <span class="nav-item-text">${cat.name}</span>
+                    </div>
+                `;
+                if (cat.children && cat.children.length > 0) {
+                    cat.children.forEach(child => {
+                        html += `
+                            <div class="nav-item sub-nav-item" onclick="navigateTo('knowledge', { categoryId: ${child.id} })" data-title="${child.name}">
+                                <svg class="nav-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14 2 14 8 20 8"></polyline>
+                                </svg>
+                                <span class="nav-item-text">${child.name}</span>
+                            </div>
+                        `;
+                    });
+                }
+            });
+            
+            container.innerHTML = html;
+        }
+
+        // 渲染页面
+        function renderPage(page, params = {}) {
+            const content = document.getElementById('content');
+            
+            switch (page) {
+                case 'home':
+                    content.innerHTML = renderHome();
+                    break;
+                case 'knowledge':
+                    content.innerHTML = renderKnowledgeList(params);
+                    break;
+                case 'detail':
+                    content.innerHTML = renderKnowledgeDetail(params);
+                    break;
+                case 'create':
+                    content.innerHTML = renderCreateKnowledge();
+                    break;
+                case 'search':
+                    content.innerHTML = renderSearch(params);
+                    break;
+                case 'graph':
+                    content.innerHTML = renderGraph();
+                    break;
+                case 'category':
+                    content.innerHTML = renderCategoryManage();
+                    break;
+                case 'tag':
+                    content.innerHTML = renderTagManage();
+                    break;
+                case 'import':
+                    content.innerHTML = renderImport();
+                    break;
+                case 'settings':
+                    content.innerHTML = renderSettings();
+                    break;
+                case 'help':
+                    content.innerHTML = renderHelp();
+                    break;
+                default:
+                    content.innerHTML = renderHome();
+            }
+        }
+
+        // 渲染首页
+        function renderHome() {
+            const stats = {
+                knowledgeCount: mockData.knowledge.length,
+                categoryCount: mockData.categories.length,
+                tagCount: mockData.tags.length,
+                week新增: 3
+            };
+            
+            const recentKnowledge = mockData.knowledge.slice(0, 6);
+            
+            return `
+                <div class="home-container">
+                    <div class="welcome-section">
+                        <h1>欢迎回来，用户</h1>
+                        <p>这里是您的知识管理中心</p>
+                    </div>
+                    <div class="stats-grid">
+                        <div class="card stat-card">
+                            <div class="stat-content">
+                                <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="#409eff" stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14 2 14 8 20 8"></polyline>
+                                </svg>
+                                <div class="stat-info">
+                                    <div class="stat-value">${stats.knowledgeCount}</div>
+                                    <div class="stat-label">知识点总数</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card stat-card">
+                            <div class="stat-content">
+                                <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="#67c23a" stroke-width="2">
+                                    <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                                </svg>
+                                <div class="stat-info">
+                                    <div class="stat-value">${stats.categoryCount}</div>
+                                    <div class="stat-label">分类数量</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card stat-card">
+                            <div class="stat-content">
+                                <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="#e6a23c" stroke-width="2">
+                                    <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
+                                </svg>
+                                <div class="stat-info">
+                                    <div class="stat-value">${stats.tagCount}</div>
+                                    <div class="stat-label">标签数量</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card stat-card">
+                            <div class="stat-content">
+                                <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="#f56c6c" stroke-width="2">
+                                    <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline>
+                                    <polyline points="16 7 22 7 22 13"></polyline>
+                                </svg>
+                                <div class="stat-info">
+                                    <div class="stat-value">${stats.week新增}</div>
+                                    <div class="stat-label">本周新增</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="section">
+                        <div class="card-header">
+                            <span class="card-title">最近知识点</span>
+                            <button class="btn btn-default" onclick="navigateTo('knowledge')">
+                                查看全部
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+                                    <polyline points="9 18 15 12 9 6"></polyline>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="knowledge-grid">
+                            ${recentKnowledge.map(k => renderKnowledgeCard(k)).join('')}
+                        </div>
+                    </div>
+                    <div class="section">
+                        <div class="card-header">
+                            <span class="card-title">快速操作</span>
+                        </div>
+                        <div class="knowledge-grid">
+                            <div class="card knowledge-card" onclick="navigateTo('create')">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="#409eff" stroke-width="2" width="48" height="48">
+                                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                </svg>
+                                <span style="font-size: 16px; color: rgba(255, 255, 255, 0.85);">新建知识点</span>
+                            </div>
+                            <div class="card knowledge-card" onclick="navigateTo('import')">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="#67c23a" stroke-width="2" width="48" height="48">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                    <polyline points="17 8 12 3 7 8"></polyline>
+                                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                                </svg>
+                                <span style="font-size: 16px; color: rgba(255, 255, 255, 0.85);">导入文件</span>
+                            </div>
+                            <div class="card knowledge-card" onclick="navigateTo('graph')">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="#e6a23c" stroke-width="2" width="48" height="48">
+                                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
+                                </svg>
+                                <span style="font-size: 16px; color: rgba(255, 255, 255, 0.85);">知识图谱</span>
+                            </div>
+                            <div class="card knowledge-card" onclick="navigateTo('search')">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="#f56c6c" stroke-width="2" width="48" height="48">
+                                    <circle cx="11" cy="11" r="8"></circle>
+                                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                </svg>
+                                <span style="font-size: 16px; color: rgba(255, 255, 255, 0.85);">搜索知识</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // 渲染知识点卡片
+        function renderKnowledgeCard(k) {
+            const category = findCategory(k.categoryId);
+            const tags = k.tagIds.map(id => findTag(id)).filter(Boolean);
+            
+            return `
+                <div class="card knowledge-card" onclick="navigateTo('detail', { id: ${k.id} })">
+                    <div class="knowledge-card-header">
+                        <span class="knowledge-card-title">${k.title}</span>
+                    </div>
+                    <div class="knowledge-card-summary">${k.summary}</div>
+                    <div class="knowledge-card-tags">
+                        ${tags.map(t => `<span class="tag" style="background: ${t.color}">${t.name}</span>`).join('')}
+                    </div>
+                    <div class="knowledge-card-meta">
+                        <span class="category-tag">
+                            <svg class="category-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                            </svg>
+                            ${category ? category.name : '未分类'}
+                        </span>
+                        <span>${formatDate(k.createTime)}</span>
+                    </div>
+                </div>
+            `;
+        }
+
+        // 渲染知识点列表
+        function renderKnowledgeList(params = {}) {
+            let knowledge = [...mockData.knowledge];
+            
+            // 筛选
+            if (params.categoryId) {
+                knowledge = knowledge.filter(k => k.categoryId === params.categoryId);
+            }
+            
+            // 排序
+            knowledge.sort((a, b) => new Date(b.createTime) - new Date(a.createTime));
+            
+            return `
+                <div class="knowledge-list-container">
+                    <div class="toolbar">
+                        <div class="toolbar-left">
+                            <div class="select-wrapper">
+                                <select class="select-input" id="viewMode" onchange="renderPage('knowledge', ${JSON.stringify(params)})">
+                                    <option value="card">卡片视图</option>
+                                    <option value="list">列表视图</option>
+                                </select>
+                            </div>
+                            <div class="select-wrapper">
+                                <select class="select-input" id="filterCategory">
+                                    <option value="">全部分类</option>
+                                    ${mockData.categories.map(cat => `<option value="${cat.id}">${cat.name}</option>`).join('')}
+                                </select>
+                            </div>
+                            <div class="select-wrapper">
+                                <select class="select-input" id="filterTag">
+                                    <option value="">全部标签</option>
+                                    ${mockData.tags.map(tag => `<option value="${tag.id}">${tag.name}</option>`).join('')}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="toolbar-right">
+                            <button class="btn btn-primary" onclick="navigateTo('create')">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                </svg>
+                                新建知识点
+                            </button>
+                        </div>
+                    </div>
+                    <div class="knowledge-grid">
+                        ${knowledge.map(k => renderKnowledgeCard(k)).join('')}
+                    </div>
+                    ${knowledge.length === 0 ? '<div class="empty-state">暂无知识点</div>' : ''}
+                </div>
+            `;
+        }
+
+        // 渲染知识点详情
+        function renderKnowledgeDetail(params) {
+            const knowledge = mockData.knowledge.find(k => k.id === params.id);
+            if (!knowledge) {
+                return '<div class="empty-state">知识点不存在</div>';
+            }
+            
+            const category = findCategory(knowledge.categoryId);
+            const tags = knowledge.tagIds.map(id => findTag(id)).filter(Boolean);
+            const htmlContent = marked.parse(knowledge.content);
+            
+            return `
+                <div class="detail-content">
+                    <div class="detail-header">
+                        <h1 class="detail-title">${knowledge.title}</h1>
+                        <div class="detail-meta">
+                            <span class="category-tag">
+                                <svg class="category-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                                </svg>
+                                ${category ? category.name : '未分类'}
+                            </span>
+                            <span>创建于 ${formatDate(knowledge.createTime)}</span>
+                        </div>
+                        <div class="detail-tags">
+                            ${tags.map(t => `<span class="tag" style="background: ${t.color}">${t.name}</span>`).join('')}
+                        </div>
+                    </div>
+                    <div class="detail-actions">
+                        <button class="btn btn-primary" onclick="navigateTo('create')">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                            </svg>
+                            编辑
+                        </button>
+                        <button class="btn btn-default" onclick="navigateTo('knowledge')">
+                            返回列表
+                        </button>
+                    </div>
+                    <div class="markdown-body">${htmlContent}</div>
+                </div>
+            `;
+        }
+
+        // 渲染创建知识点页面
+        function renderCreateKnowledge() {
+            return `
+                <div class="knowledge-edit-container">
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-title">新建知识点</span>
+                        </div>
+                        <form id="createForm" onsubmit="handleCreateKnowledge(event)">
+                            <div class="form-group">
+                                <label class="form-label">标题 <span style="color: #f56c6c;">*</span></label>
+                                <input type="text" class="form-input" id="titleInput" placeholder="请输入知识点标题" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">分类</label>
+                                <div class="select-wrapper">
+                                    <select class="form-input" id="categoryInput">
+                                        <option value="">选择分类</option>
+                                        ${mockData.categories.map(cat => `<option value="${cat.id}">${cat.name}</option>`).join('')}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">标签</label>
+                                <div id="tagSelection">
+                                    ${mockData.tags.map(tag => `
+                                        <label style="display: inline-block; margin-right: 16px; margin-bottom: 8px;">
+                                            <input type="checkbox" name="tags" value="${tag.id}">
+                                            <span class="tag" style="background: ${tag.color}; margin-left: 4px;">${tag.name}</span>
+                                        </label>
+                                    `).join('')}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">内容 <span style="color: #f56c6c;">*</span></label>
+                                <textarea class="form-input form-textarea" id="contentInput" placeholder="请输入 Markdown 内容..." required></textarea>
+                            </div>
+                            <div class="detail-actions">
+                                <button type="button" class="btn btn-default" onclick="navigateTo('knowledge')">取消</button>
+                                <button type="submit" class="btn btn-primary">创建知识点</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            `;
+        }
+
+        // 处理创建知识点
+        function handleCreateKnowledge(e) {
+            e.preventDefault();
+            const title = document.getElementById('titleInput').value;
+            const content = document.getElementById('contentInput').value;
+            const categoryId = document.getElementById('categoryInput').value;
+            const tagCheckboxes = document.querySelectorAll('input[name="tags"]:checked');
+            const tagIds = Array.from(tagCheckboxes).map(cb => parseInt(cb.value));
+            
+            const newKnowledge = {
+                id: Date.now(),
+                title,
+                summary: content.substring(0, 200) + (content.length > 200 ? '...' : ''),
+                content,
+                categoryId: categoryId ? parseInt(categoryId) : null,
+                tagIds,
+                createTime: new Date().toISOString(),
+                updateTime: new Date().toISOString()
+            };
+            
+            mockData.knowledge.unshift(newKnowledge);
+            alert('创建成功！');
+            navigateTo('knowledge');
+        }
+
+        // 渲染搜索页面
+        function renderSearch(params = {}) {
+            const keyword = params.keyword || '';
+            let results = [...mockData.knowledge];
+            
+            if (keyword) {
+                results = results.filter(k => 
+                    k.title.toLowerCase().includes(keyword.toLowerCase()) ||
+                    k.content.toLowerCase().includes(keyword.toLowerCase())
+                );
+            }
+            
+            return `
+                <div class="search-container">
+                    <div class="search-header">
+                        <input type="text" class="search-input-large" id="searchInput" placeholder="搜索知识点..." value="${keyword}">
+                        <div class="search-filters">
+                            <div class="select-wrapper">
+                                <select class="select-input" id="searchCategory">
+                                    <option value="">全部分类</option>
+                                    ${mockData.categories.map(cat => `<option value="${cat.id}">${cat.name}</option>`).join('')}
+                                </select>
+                            </div>
+                            <button class="btn btn-primary" onclick="doSearch()">搜索</button>
+                        </div>
+                    </div>
+                    <div class="search-results">
+                        <div class="results-header">
+                            ${keyword ? `找到 ${results.length} 条与 "<em>${keyword}</em>" 相关的结果` : '请输入关键词搜索'}
+                        </div>
+                        <div class="results-list">
+                            ${results.map(r => {
+                                const category = findCategory(r.categoryId);
+                                const tags = r.tagIds.map(id => findTag(id)).filter(Boolean);
+                                return `
+                                    <div class="result-item" onclick="navigateTo('detail', { id: ${r.id} })">
+                                        <div class="result-title">${highlightKeyword(r.title, keyword)}</div>
+                                        <div class="result-summary">${highlightKeyword(r.summary, keyword)}</div>
+                                        <div class="result-meta">
+                                            <span class="category-tag">
+                                                <svg class="category-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                    <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                                                </svg>
+                                                ${category ? category.name : '未分类'}
+                                            </span>
+                                            <div class="knowledge-card-tags">
+                                                ${tags.map(t => `<span class="tag" style="background: ${t.color}">${t.name}</span>`).join('')}
+                                            </div>
+                                            <span>${formatDate(r.createTime)}</span>
+                                        </div>
+                                    </div>
+                                `;
+                            }).join('')}
+                            ${results.length === 0 && keyword ? '<div class="empty-state">未找到相关知识点</div>' : ''}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // 执行搜索
+        function doSearch() {
+            const keyword = document.getElementById('searchInput').value.trim();
+            navigateTo('search', { keyword });
+        }
+
+        // 高亮关键词
+        function highlightKeyword(text, keyword) {
+            if (!keyword || !text) return text;
+            const regex = new RegExp(`(${keyword})`, 'gi');
+            return text.replace(regex, '<span class="highlight">$1</span>');
+        }
+
+        // 渲染知识图谱页面
+        function renderGraph() {
+            return `
+                <div class="graph-container">
+                    <div class="graph-toolbar">
+                        <button class="btn btn-default">添加节点</button>
+                        <button class="btn btn-default">添加连线</button>
+                        <button class="btn btn-default">自动布局</button>
+                        <button class="btn btn-default">刷新</button>
+                    </div>
+                    <div style="padding: 20px;">
+                        <div class="empty-state">
+                            <svg class="empty-icon" viewBox="0 0 24 24" fill="none" stroke="#909399" stroke-width="2">
+                                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
+                            </svg>
+                            <p>知识图谱功能开发中</p>
+                            <p style="font-size: 12px;">即将支持知识点可视化关联</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // 渲染分类管理页面
+        function renderCategoryManage() {
+            return `
+                <div class="category-manage-container">
+                    <div class="toolbar">
+                        <button class="btn btn-primary" onclick="showAddCategoryModal()">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                            </svg>
+                            新建分类
+                        </button>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-title">分类列表</span>
+                        </div>
+                        <div class="tree-container">
+                            ${renderCategoryTree(mockData.categories)}
+                        </div>
+                        ${mockData.categories.length === 0 ? '<div class="empty-state">暂无分类</div>' : ''}
+                    </div>
+                </div>
+            `;
+        }
+
+        // 渲染分类树
+        function renderCategoryTree(categories) {
+            let html = '';
+            categories.forEach(cat => {
+                html += `
+                    <div class="tree-node">
+                        <div class="tree-node-label">
+                            <svg class="tree-node-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                            </svg>
+                            ${cat.name}
+                        </div>
+                        <div class="tree-node-actions">
+                            <button onclick="showEditCategoryModal(${cat.id})">编辑</button>
+                            <button onclick="addSubCategory(${cat.id})">添加子分类</button>
+                            <button class="btn-danger" onclick="deleteCategory(${cat.id})">删除</button>
+                        </div>
+                    </div>
+                    ${cat.children && cat.children.length > 0 ? `
+                        <div style="padding-left: 24px;">
+                            ${cat.children.map(child => `
+                                <div class="tree-node">
+                                    <div class="tree-node-label">
+                                        <svg class="tree-node-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                            <polyline points="14 2 14 8 20 8"></polyline>
+                                        </svg>
+                                        ${child.name}
+                                    </div>
+                                    <div class="tree-node-actions">
+                                        <button onclick="showEditCategoryModal(${child.id})">编辑</button>
+                                        <button class="btn-danger" onclick="deleteCategory(${child.id})">删除</button>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    ` : ''}
+                `;
+            });
+            return html;
+        }
+
+        // 显示添加分类弹窗
+        function showAddCategoryModal() {
+            document.getElementById('modalTitle').textContent = '新建分类';
+            document.getElementById('modalBody').innerHTML = `
+                <div class="form-group">
+                    <label class="form-label">分类名称</label>
+                    <input type="text" class="form-input" id="categoryName">
+                </div>
+            `;
+            document.getElementById('modalFooter').innerHTML = `
+                <button class="btn btn-default" onclick="closeModal()">取消</button>
+                <button class="btn btn-primary" onclick="addCategory()">确定</button>
+            `;
+            document.getElementById('modal').style.display = 'flex';
+        }
+
+        // 添加分类
+        function addCategory() {
+            const name = document.getElementById('categoryName').value.trim();
+            if (!name) {
+                alert('请输入分类名称');
+                return;
+            }
+            
+            const newCategory = {
+                id: Date.now(),
+                name,
+                parentId: 0,
+                children: []
+            };
+            
+            mockData.categories.push(newCategory);
+            closeModal();
+            renderPage('category');
+            renderCategoryNav();
+        }
+
+        // 删除分类
+        function deleteCategory(id) {
+            if (confirm('确定要删除这个分类吗？')) {
+                mockData.categories = mockData.categories.filter(c => c.id !== id);
+                renderPage('category');
+                renderCategoryNav();
+            }
+        }
+
+        // 渲染标签管理页面
+        function renderTagManage() {
+            return `
+                <div class="tag-manage-container">
+                    <div class="toolbar">
+                        <button class="btn btn-primary" onclick="showAddTagModal()">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                            </svg>
+                            添加标签
+                        </button>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-title">标签列表</span>
+                        </div>
+                        <div class="tag-list">
+                            ${mockData.tags.map(tag => `
+                                <div class="tag-item">
+                                    <div class="tag-color" style="background: ${tag.color}"></div>
+                                    <span class="tag-name">${tag.name}</span>
+                                    <span class="tag-count">${getTagCount(tag.id)} 个知识点</span>
+                                    <div class="tree-node-actions">
+                                        <button onclick="showEditTagModal(${tag.id})">编辑</button>
+                                        <button class="btn-danger" onclick="deleteTag(${tag.id})">删除</button>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                        ${mockData.tags.length === 0 ? '<div class="empty-state">暂无标签</div>' : ''}
+                    </div>
+                </div>
+            `;
+        }
+
+        // 获取标签使用数量
+        function getTagCount(tagId) {
+            return mockData.knowledge.filter(k => k.tagIds.includes(tagId)).length;
+        }
+
+        // 显示添加标签弹窗
+        function showAddTagModal() {
+            document.getElementById('modalTitle').textContent = '添加标签';
+            document.getElementById('modalBody').innerHTML = `
+                <div class="form-group">
+                    <label class="form-label">标签名称</label>
+                    <input type="text" class="form-input" id="tagName">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">颜色</label>
+                    <input type="color" class="form-input" id="tagColor" value="#409eff">
+                </div>
+            `;
+            document.getElementById('modalFooter').innerHTML = `
+                <button class="btn btn-default" onclick="closeModal()">取消</button>
+                <button class="btn btn-primary" onclick="addTag()">确定</button>
+            `;
+            document.getElementById('modal').style.display = 'flex';
+        }
+
+        // 添加标签
+        function addTag() {
+            const name = document.getElementById('tagName').value.trim();
+            const color = document.getElementById('tagColor').value;
+            
+            if (!name) {
+                alert('请输入标签名称');
+                return;
+            }
+            
+            const newTag = {
+                id: Date.now(),
+                name,
+                color
+            };
+            
+            mockData.tags.push(newTag);
+            closeModal();
+            renderPage('tag');
+        }
+
+        // 删除标签
+        function deleteTag(id) {
+            if (confirm('确定要删除这个标签吗？')) {
+                mockData.tags = mockData.tags.filter(t => t.id !== id);
+                renderPage('tag');
+            }
+        }
+
+        // 关闭弹窗
+        function closeModal(e) {
+            document.getElementById('modal').style.display = 'none';
+        }
+
+        // 渲染导入页面
+        function renderImport() {
+            return `
+                <div class="import-container">
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-title">文件导入</span>
+                        </div>
+                        <div style="text-align: center; padding: 40px;">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="#409eff" stroke-width="2" width="64" height="64">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="17 8 12 3 7 8"></polyline>
+                                <line x1="12" y1="3" x2="12" y2="15"></line>
+                            </svg>
+                            <div style="margin-top: 16px;">
+                                <p>拖拽文件到此处，或点击上传</p>
+                                <p style="color: #909399; font-size: 12px;">支持 PDF、Word、TXT、Markdown 格式</p>
+                            </div>
+                            <button class="btn btn-primary" style="margin-top: 16px;">选择文件</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // 渲染设置页面
+        function renderSettings() {
+            return `
+                <div class="settings-container">
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-title">个人设置</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 24px; margin-bottom: 24px;">
+                            <div class="user-avatar" style="width: 80px; height: 80px; font-size: 32px; background-image: url('img/mmexport1779292180713.jpg'); background-size: cover; background-position: center;"></div>
+                            <div>
+                                <p style="font-weight: 600; font-size: 16px;">用户名</p>
+                                <button class="btn btn-default" style="margin-top: 8px;">更换头像</button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">用户名</label>
+                            <input type="text" class="form-input" value="user" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">邮箱</label>
+                            <input type="text" class="form-input" placeholder="请输入邮箱">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">昵称</label>
+                            <input type="text" class="form-input" placeholder="请输入昵称">
+                        </div>
+                        <button class="btn btn-primary">保存修改</button>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-title">密码修改</span>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">原密码</label>
+                            <input type="password" class="form-input" placeholder="请输入原密码">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">新密码</label>
+                            <input type="password" class="form-input" placeholder="请输入新密码">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">确认新密码</label>
+                            <input type="password" class="form-input" placeholder="请确认新密码">
+                        </div>
+                        <button class="btn btn-primary">修改密码</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        // 渲染帮助页面
+        function renderHelp() {
+            return `
+                <div class="help-container">
+                    <div class="card">
+                        <h2>欢迎使用智识笔记</h2>
+                        <p style="color: #606266; margin-top: 8px;">智识笔记是一款面向学生群体的个人知识库管理系统，帮助您高效构建个人知识体系。</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-title">1. 如何创建知识点？</span>
+                        </div>
+                        <div style="color: #606266; line-height: 1.8;">
+                            <p><strong>方式一：手动创建</strong></p>
+                            <ol>
+                                <li>点击左侧导航栏的"新建知识点"按钮</li>
+                                <li>填写知识点标题和内容（支持 Markdown 格式）</li>
+                                <li>选择或创建分类和标签</li>
+                                <li>点击"创建知识点"保存</li>
+                            </ol>
+                            <p style="margin-top: 16px;"><strong>方式二：AI 智能导入</strong></p>
+                            <ol>
+                                <li>点击"导入文件"进入导入页面</li>
+                                <li>上传 PDF、Word、TXT 或图片文件</li>
+                                <li>AI 自动提取知识点</li>
+                                <li>校正后保存为知识点</li>
+                            </ol>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-title">2. Markdown 语法指南</span>
+                        </div>
+                        <div style="color: #606266;">
+                            <pre style="background: #f5f7fa; padding: 16px; border-radius: 4px; font-family: Consolas, Monaco, monospace; font-size: 13px;"># 一级标题
+## 二级标题
+
+**加粗文本**
+*斜体文本*
+
+- 无序列表项
+- 另一个列表项
+
+1. 有序列表项
+2. 第二个列表项
+
+[链接文字](URL)
+![图片描述](图片URL)
+
+\`\`\`javascript
+function hello() {
+  console.log('Hello');
+}
+\`\`\`</pre>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-title">3. 常见问题</span>
+                        </div>
+                        <div style="color: #606266;">
+                            <p><strong>支持哪些文件格式？</strong></p>
+                            <p>智识笔记支持 PDF、Word、TXT、Markdown 和图片格式。</p>
+                            <p style="margin-top: 16px;"><strong>如何搜索知识点？</strong></p>
+                            <p>在顶部搜索框输入关键词，支持按分类、标签筛选。</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // 辅助函数：查找分类
+        function findCategory(id) {
+            if (!id) return null;
+            for (const cat of mockData.categories) {
+                if (cat.id === id) return cat;
+                if (cat.children) {
+                    const found = cat.children.find(c => c.id === id);
+                    if (found) return found;
+                }
+            }
+            return null;
+        }
+
+        // 辅助函数：查找标签
+        function findTag(id) {
+            return mockData.tags.find(t => t.id === id);
+        }
+
+        // 辅助函数：格式化日期
+        function formatDate(dateStr) {
+            if (!dateStr) return '';
+            const date = new Date(dateStr);
+            return date.toLocaleDateString('zh-CN');
+        }
+    </script>
+</body>
+</html>

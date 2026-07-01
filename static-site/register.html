@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智识笔记 - 注册</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .auth-page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 20px;
+        }
+
+        .auth-container {
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: saturate(180%) blur(30px);
+            -webkit-backdrop-filter: saturate(180%) blur(30px);
+            border: 0.5px solid rgba(255, 255, 255, 0.15);
+            border-radius: 24px;
+            padding: 48px;
+            width: 100%;
+            max-width: 900px;
+            box-shadow: 0 24px 64px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: row;
+            gap: 64px;
+        }
+
+        .auth-left {
+            flex: 1.2;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-right: 0.5px solid rgba(255, 255, 255, 0.1);
+            padding-right: 64px;
+        }
+
+        .auth-back-btn {
+            align-self: flex-start;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 12px;
+            background: transparent;
+            border: 0.5px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 13px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-bottom: 24px;
+        }
+
+        .auth-back-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        .auth-back-btn svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .auth-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 24px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 24px;
+        }
+
+        .auth-logo svg {
+            width: 32px;
+            height: 32px;
+        }
+
+        .auth-title {
+            font-size: 28px;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+
+        .auth-subtitle {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 32px;
+        }
+
+        .auth-features {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .auth-feature {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .auth-feature-icon {
+            width: 20px;
+            height: 20px;
+        }
+
+        .auth-feature-text {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .auth-right {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .auth-form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .auth-form-label {
+            font-size: 13px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        .auth-form-input {
+            width: 100%;
+            padding: 12px 14px;
+            border: none;
+            border-radius: 12px;
+            font-size: 14px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            outline: none;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            box-sizing: border-box;
+        }
+
+        .auth-form-input::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .auth-form-input:focus {
+            background: rgba(255, 255, 255, 0.18);
+            box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.3);
+        }
+
+        .auth-form-options {
+            font-size: 13px;
+            margin-top: 4px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .auth-form-options a {
+            color: #00d4ff;
+            text-decoration: none;
+        }
+
+        .auth-form-options a:hover {
+            color: #4de4ff;
+        }
+
+        .auth-form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .auth-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .auth-btn-secondary {
+            background: transparent;
+            color: rgba(255, 255, 255, 0.8);
+            border: 0.5px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .auth-btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .auth-btn-primary {
+            background: #00d4ff;
+            color: #000;
+        }
+
+        .auth-btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 16px rgba(0, 212, 255, 0.4);
+        }
+
+        .auth-divider {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin: 20px 0;
+        }
+
+        .auth-divider-line {
+            flex: 1;
+            height: 0.5px;
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .auth-divider-text {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .auth-social-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .auth-social-btn {
+            width: 100%;
+            padding: 12px;
+            border: 0.5px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.85);
+            background: rgba(255, 255, 255, 0.05);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .auth-social-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .auth-footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .auth-footer a {
+            color: #00d4ff;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .auth-footer a:hover {
+            color: #4de4ff;
+        }
+
+        @media (max-width: 640px) {
+            .auth-container {
+                flex-direction: column;
+                max-width: 400px;
+                padding: 32px;
+                gap: 32px;
+            }
+
+            .auth-left {
+                border-right: none;
+                border-bottom: 0.5px solid rgba(255, 255, 255, 0.1);
+                padding-right: 0;
+                padding-bottom: 32px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-page">
+        <div class="auth-container">
+            <div class="auth-left">
+                <a href="landing.html" class="auth-back-btn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                    <span>返回首页</span>
+                </a>
+                <a href="landing.html" class="auth-logo">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                        <line x1="16" y1="13" x2="8" y2="13"></line>
+                        <line x1="16" y1="17" x2="8" y2="17"></line>
+                        <polyline points="10 9 9 9 8 9"></polyline>
+                    </svg>
+                    <span>智识笔记</span>
+                </a>
+                <h1 class="auth-title">注册</h1>
+                <p class="auth-subtitle">创建你的智识笔记账号</p>
+                <div class="auth-features">
+                    <div class="auth-feature">
+                        <svg class="auth-feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                        </svg>
+                        <span class="auth-feature-text">支持 Markdown 实时预览</span>
+                    </div>
+                    <div class="auth-feature">
+                        <svg class="auth-feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                        <span class="auth-feature-text">强大的搜索功能</span>
+                    </div>
+                    <div class="auth-feature">
+                        <svg class="auth-feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
+                        </svg>
+                        <span class="auth-feature-text">可视化知识图谱</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="auth-right">
+                <form class="auth-form" onsubmit="handleRegister(event)">
+                    <div class="auth-form-group">
+                        <label class="auth-form-label">用户名</label>
+                        <input type="text" class="auth-form-input" id="registerUsername" placeholder="请输入用户名" required>
+                    </div>
+
+                    <div class="auth-form-group">
+                        <label class="auth-form-label">邮箱地址</label>
+                        <input type="email" class="auth-form-input" id="registerEmail" placeholder="请输入邮箱" required>
+                    </div>
+
+                    <div class="auth-form-group">
+                        <label class="auth-form-label">密码</label>
+                        <input type="password" class="auth-form-input" id="registerPassword" placeholder="请输入密码" required>
+                    </div>
+
+                    <div class="auth-form-options">
+                        <span>注册即表示同意我们的 <a href="#">服务条款</a> 和 <a href="#">隐私政策</a></span>
+                    </div>
+
+                    <div class="auth-form-actions">
+                        <button type="button" class="auth-btn auth-btn-secondary" onclick="window.location.href='login.html'">返回登录</button>
+                        <button type="submit" class="auth-btn auth-btn-primary">下一步</button>
+                    </div>
+                </form>
+
+                <div class="auth-divider">
+                    <div class="auth-divider-line"></div>
+                    <span class="auth-divider-text">其他方式注册</span>
+                    <div class="auth-divider-line"></div>
+                </div>
+
+                <div class="auth-social-buttons">
+                    <button class="auth-social-btn">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="#4285F4">
+                            <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                            <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                            <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                            <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                        </svg>
+                        <span>使用 Google 注册</span>
+                    </button>
+                    <button class="auth-social-btn">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="#07C160">
+                            <path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178A1.17 1.17 0 0 1 4.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178 1.17 1.17 0 0 1-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 0 1 .598.082l1.584.926a.272.272 0 0 0 .14.047c.134 0 .24-.111.24-.247 0-.06-.023-.12-.038-.177l-.322-1.233a.49.49 0 0 1-.008-.135.396.396 0 0 1 .201-.314C23.024 18.48 24 16.82 24 14.98c0-3.21-2.931-5.837-6.656-6.088V8.89c-.135-.01-.269-.03-.407-.03zm-2.53 3.274c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.97-.982zm4.844 0c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.969-.982z"/>
+                        </svg>
+                        <span>使用微信注册</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function handleRegister(event) {
+            event.preventDefault();
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>
